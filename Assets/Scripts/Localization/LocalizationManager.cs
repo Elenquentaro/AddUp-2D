@@ -10,11 +10,13 @@ public class LocalizationManager : MonoBehaviour
 
     public static Localization GetCurrentLocalization() => currentLocalization;
 
+#if UnityEditor
     [MenuItem("Localization/Create default en localization file")]
     public static void CreateDefault()
     {
         new Localization().SaveJson();
     }
+#endif
 
     public static void LoadCurrentLocalization(string langCode = "en")
     {

@@ -7,7 +7,8 @@ using UnityEngine;
 [System.Serializable]
 public class Localization : ISavable, ILoadable<Localization>
 {
-    public string lang = "en";
+    public string langCode = "en";
+    public string langName = "English";
 
     public Dictionary<string, string> words = new Dictionary<string, string>();
 
@@ -38,7 +39,7 @@ public class Localization : ISavable, ILoadable<Localization>
 
     public override string ToString()
     {
-        string data = lang + "\n";
+        string data = langCode + "\n";
         foreach (string key in words.Keys)
         {
             data += $"{key}: {words[key]}\n";
@@ -48,7 +49,7 @@ public class Localization : ISavable, ILoadable<Localization>
 
     public void SaveJson()
     {
-        File.WriteAllText("Assets/Resources/" + lang + "-langFile.json", GetSavedData());
+        File.WriteAllText("Assets/Resources/" + langCode + "-langFile.json", GetSavedData());
         // if (File.Exists("Assets/Resources/" + lang + "-langFile.json"))
         // {
         //     Debug.Log("Exists!");

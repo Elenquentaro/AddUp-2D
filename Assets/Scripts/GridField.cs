@@ -59,10 +59,22 @@ public class GridField : MonoBehaviour
     {
         if (!HasEmptyCells) throw new InvalidOperationException("There's no empty cells");
         var cell = emptyCells[UnityEngine.Random.Range(0, emptyCells.Count)];
+        InsertToCell(cell, summand, summandValue);
+    }
+
+    public void InsertToCell(CellIndex cell, Summand summand, int summandValue = 1)
+    {
+        if (!emptyCells.Contains(cell))
+        {
+            cell.BoundToGrid(gridSize, gridSize);
+            var prevContent = cells[cell.col, cell.raw].ExtractContent();
+            if (prevContent != null) Destroy(prevContent);
+        }
+
         cells[cell.col, cell.raw].AttachContent(summand);
         summand.AssignBehaviour(Replace);
         emptyCells.Remove(cell);
-        summand.AssignValue((cell.col, cell.raw), summandValue);
+        summand.AssignValue(cell, summandValue);
         if (summandValue > maxSummandAtField) maxSummandAtField = summandValue;
     }
 
@@ -92,11 +104,28 @@ public class GridField : MonoBehaviour
 
     public void Replace(CellIndex from, CellIndex to)
     {
-        to.BoundToGrid(cells.GetLength(0), cells.GetLength(1));
+        to.BoundToGrid(gridSize, gridSize);
         if (cells[to.col, to.raw].MergeContentWith(cells[from.col, from.raw]))
         {
+            DataManager.SaveGridState(GetSummandsOnGrid());
             emptyCells.Remove(to);
         }
+    }
+
+    public List<SummandInfo> GetSummandsOnGrid()
+    {
+        List<SummandInfo> list = new List<SummandInfo>();
+        for (int raw = 0; raw < gridSize; raw++)
+        {
+            for (int col = 0; col < gridSize; col++)
+            {
+                if (cells[col, raw].ContentValue != null)
+                {
+                    list.Add(((int)cells[col, raw].ContentValue, (col, raw)));
+                }
+            }
+        }
+        return list;
     }
 
     public void OnDrawGizmos()

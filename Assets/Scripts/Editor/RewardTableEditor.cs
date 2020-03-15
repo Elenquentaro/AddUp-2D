@@ -19,12 +19,16 @@ public class RewardTableEditor : Editor
     public override void OnInspectorGUI()
     {
         MergeRewardTable mrt = target as MergeRewardTable;
-        firstRewardValue = EditorGUILayout.DelayedIntField("Start price: ", firstRewardValue);
+        firstRewardValue = EditorGUILayout.DelayedIntField("Start reward: ", firstRewardValue);
+        if (firstRewardValue < 10)
+        {
+            firstRewardValue = 10;
+        }
         tableSize = EditorGUILayout.DelayedIntField("Target table size:", tableSize);
         if (tableSize < 1) tableSize = 1;
 
         // GUILayout.Label("Current price progression:\n");
-        if (GUILayout.Button("Calculate prices"))
+        if (GUILayout.Button("Calculate rewards"))
         {
             mrt.ResizeRewardTable(tableSize);
             for (int i = 1; i < tableSize; i++)

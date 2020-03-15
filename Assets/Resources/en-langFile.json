@@ -1,21 +1,54 @@
 {
-    "lang": "en",
+    "langCode": "en",
+    "langName": "English",
     "wordsList": [
+        {
+            "Key": "buy",
+            "Value": "buy"
+        },
+        {
+            "Key": "cancel",
+            "Value": "Cancel"
+        },
+        {
+            "Key": "confirm",
+            "Value": "Confirm"
+        },
         {
             "Key": "language",
             "Value": "English"
+        },
+        {
+            "Key": "language-word",
+            "Value": "Language"
+        },
+        {
+            "Key": "reset",
+            "Value": "Reset progress"
+        },
+        {
+            "Key": "reset-question",
+            "Value": "Reset all progress"
+        },
+        {
+            "Key": "resume",
+            "Value": "Resume"
         },
         {
             "Key": "score",
             "Value": "Score"
         },
         {
+            "Key": "settings",
+            "Value": "Settings"
+        },
+        {
             "Key": "shop",
             "Value": "Shop"
         },
         {
-            "Key": "buy",
-            "Value": "buy"
+            "Key": "spawn-interval",
+            "Value": "Spawn interval"
         }
     ]
 }

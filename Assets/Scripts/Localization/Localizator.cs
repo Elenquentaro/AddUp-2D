@@ -10,6 +10,7 @@ public class Localizator : MonoBehaviour
 
     [SerializeField] protected string wordKey = "score";
     [SerializeField] protected string localizableText = "";
+    [SerializeField] protected string additionSymbols = "";
 
 
     protected virtual void Awake()
@@ -17,8 +18,17 @@ public class Localizator : MonoBehaviour
         LocalizationManager.onLocalize.AddListener(LocalizeText);
     }
 
+    void OnEnable()
+    {
+        if (LocalizationManager.GetCurrentLocalization() != null)
+        {
+            LocalizeText(LocalizationManager.GetCurrentLocalization());
+        }
+    }
+
     public void LocalizeText(Localization loc)
     {
+        // Debug.Log("localization of " + wordKey);
         if (loc.words.ContainsKey(wordKey))
         {
             localizableText = loc.words[wordKey];
@@ -28,6 +38,6 @@ public class Localizator : MonoBehaviour
 
     public virtual void DisplayText()
     {
-        textGUI.text = localizableText;
+        textGUI.text = localizableText + additionSymbols;
     }
 }

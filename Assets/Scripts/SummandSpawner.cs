@@ -10,7 +10,7 @@ public class SummandSpawner : MonoBehaviour
 
     [SerializeField] private GameObject summandPrefab = null;
 
-    [SerializeField, Range(1, 10)] private int spawnRate = 10;
+    // [SerializeField] private int autosaveRate = 3;
 
     private float lastSpawnTime = 0;
     private float timeRemains = 0;
@@ -23,7 +23,12 @@ public class SummandSpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnRoutine(spawnRate));
+        var savedSummands = DataManager.CurrentProgress.summandsOnGrid;
+        foreach (SummandInfo info in savedSummands)
+        {
+            HardSpawn(info.value, info.position);
+        }
+        StartCoroutine(SpawnRoutine(DataManager.CurrentSettings.SummandSpawnRate));
     }
 
     private IEnumerator SpawnRoutine(float rate)
@@ -53,6 +58,11 @@ public class SummandSpawner : MonoBehaviour
         Spawn(item.number);
     }
 
+    public void HardSpawn(int summandValue, CellIndex index)
+    {
+        grid.InsertToCell(index, Instantiate(summandPrefab, spawnArea).GetComponent<Summand>(), summandValue);
+    }
+
     public void GameOver()
     {
         StopAllCoroutines();
@@ -64,11 +74,12 @@ public class SummandSpawner : MonoBehaviour
         StopAllCoroutines();
         if (isPlaying)
         {
-            this.DelayedAction(timeRemains, () => StartCoroutine(SpawnRoutine(spawnRate)));
+            this.DelayedAction(timeRemains, () => StartCoroutine(SpawnRoutine(DataManager.CurrentSettings.SummandSpawnRate)));
         }
         else
         {
-            timeRemains = Mathf.Clamp(Time.time - lastSpawnTime, 0, spawnRate);
+            DataManager.SaveGridState(grid.GetSummandsOnGrid());
+            timeRemains = Mathf.Clamp(Time.time - lastSpawnTime, 0, DataManager.CurrentSettings.SummandSpawnRate);
         }
     }
 }

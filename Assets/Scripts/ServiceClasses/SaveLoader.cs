@@ -12,13 +12,16 @@ public static class SaveLoader
     public static void Save<T>(T data) where T : ISavable
     {
         string path = Path.Combine(dataFolderPath, typeof(T).ToString());
+        if (data is IExtensionable) path += (data as IExtensionable).GetExtention();
         File.WriteAllText(path, data.GetSavedData());
     }
 
     public static T Load<T>() where T : ILoadable<T>, new()
     {
         string path = Path.Combine(dataFolderPath, typeof(T).ToString());
+        T instance = new T();
+        if (instance is IExtensionable) path += (instance as IExtensionable).GetExtention();
         if (!File.Exists(path)) return new T();
-        return new T().GetLoadedData(File.ReadAllText(path));
+        return instance.GetLoadedData(File.ReadAllText(path));
     }
 }

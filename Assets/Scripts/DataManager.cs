@@ -30,7 +30,23 @@ public class DataManager : MonoBehaviour
 
     void Start()
     {
-        currentSettings.SetLanguage("ru");
+        // currentSettings.SetLanguage("ru");
         LocalizationManager.LoadCurrentLocalization(currentSettings.Language);
+    }
+
+    public static void ResetProgress()
+    {
+        SaveLoader.Save<Progress>(new Progress());
+    }
+
+    public static void SaveGridState(List<SummandInfo> summandsOnGrid)
+    {
+        currentProgress.summandsOnGrid = summandsOnGrid;
+        SaveLoader.Save<Progress>(currentProgress);
+    }
+
+    public static void SaveSettings()
+    {
+        SaveLoader.Save<Settings>(currentSettings);
     }
 }

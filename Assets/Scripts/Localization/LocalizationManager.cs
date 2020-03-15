@@ -23,16 +23,21 @@ public class LocalizationManager : MonoBehaviour
 
         Localization current = (from Localization loc
                                 in localizations
-                                where loc.lang == langCode
+                                where loc.langCode == langCode
                                 select loc).FirstOrDefault();
         if (current == null)
         {
             Debug.Log("Localization not loaded");
             return;
         }
+        SetCurrentLocalization(current);
 
-        currentLocalization = current;
-        onLocalize?.Invoke(currentLocalization);
         // Debug.Log("Current localization: " + currentLocalization);
+    }
+
+    public static void SetCurrentLocalization(Localization localization)
+    {
+        currentLocalization = localization;
+        onLocalize?.Invoke(currentLocalization);
     }
 }

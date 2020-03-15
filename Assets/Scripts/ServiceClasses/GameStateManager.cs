@@ -14,5 +14,6 @@ public static class GameStateManager
     {
         if (!isPlaying) pausedTime = Time.time;
         onGameStateChanged?.Invoke(isPlaying);
+        Debug.Log("is playing = " + isPlaying);
     }
 }

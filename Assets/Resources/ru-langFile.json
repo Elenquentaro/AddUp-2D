@@ -1,21 +1,54 @@
 {
-    "lang": "ru",
+    "langCode": "ru",
+    "langName": "Russian",
     "wordsList": [
+        {
+            "Key": "buy",
+            "Value": "купить"
+        },
+        {
+            "Key": "cancel",
+            "Value": "Отмена"
+        },
+        {
+            "Key": "confirm",
+            "Value": "Подтвердить"
+        },
         {
             "Key": "language",
             "Value": "Русский"
+        },
+        {
+            "Key": "language-word",
+            "Value": "Язык"
+        },
+        {
+            "Key": "reset",
+            "Value": "Сбросить прогресс"
+        },
+        {
+            "Key": "reset-question",
+            "Value": "Сбросить весь прогресс"
+        },
+        {
+            "Key": "resume",
+            "Value": "Продолжить"
         },
         {
             "Key": "score",
             "Value": "Счёт"
         },
         {
+            "Key": "settings",
+            "Value": "Настройки"
+        },
+        {
             "Key": "shop",
             "Value": "Магазин"
         },
         {
-            "Key": "buy",
-            "Value": "купить"
+            "Key": "spawn-interval",
+            "Value": "Интервал появления"
         }
     ]
 }

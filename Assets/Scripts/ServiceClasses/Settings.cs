@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Settings : ISavable, ILoadable<Settings>
+public class Settings : ISavable, ILoadable<Settings>, IExtensionable
 {
     [SerializeField] private string language = "en";
     public string Language => language;
@@ -18,5 +18,10 @@ public class Settings : ISavable, ILoadable<Settings>
     public string GetSavedData()
     {
         return JsonUtility.ToJson(this, true);
+    }
+
+    public string GetExtention()
+    {
+        return ".json";
     }
 }

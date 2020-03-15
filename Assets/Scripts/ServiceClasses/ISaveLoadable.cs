@@ -7,3 +7,8 @@ public interface ILoadable<T>
 {
     T GetLoadedData(string savedData);
 }
+
+public interface IExtensionable
+{
+    string GetExtention();
+}

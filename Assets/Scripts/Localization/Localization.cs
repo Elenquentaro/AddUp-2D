@@ -1,8 +1,5 @@
-using System;
-using System.IO;
-using System.Xml.Serialization;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Localization : ISavable, ILoadable<Localization>
@@ -24,15 +21,11 @@ public class Localization : ISavable, ILoadable<Localization>
 
     public static Localization[] LoadAll()
     {
-        string[] resourceFiles = Directory.GetFiles("Assets/Resources/");
+        TextAsset[] resourceFiles = Resources.LoadAll<TextAsset>("Localizations");
         List<Localization> localizations = new List<Localization>();
-        foreach (string filename in resourceFiles)
+        foreach (TextAsset asset in resourceFiles)
         {
-            if (filename.Contains("-langFile.json") && !filename.Contains("meta"))
-            {
-                // Debug.Log($"filename: {filename}");
-                localizations.Add(new Localization().GetLoadedData(File.ReadAllText(filename)));
-            }
+            localizations.Add(new Localization().GetLoadedData(asset.text));
         }
         return localizations.ToArray();
     }
@@ -45,15 +38,6 @@ public class Localization : ISavable, ILoadable<Localization>
             data += $"{key}: {words[key]}\n";
         }
         return data;
-    }
-
-    public void SaveJson()
-    {
-        File.WriteAllText("Assets/Resources/" + langCode + "-langFile.json", GetSavedData());
-        // if (File.Exists("Assets/Resources/" + lang + "-langFile.json"))
-        // {
-        //     Debug.Log("Exists!");
-        // }
     }
 
     public string GetSavedData()

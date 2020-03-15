@@ -16,8 +16,13 @@ public struct CellIndex
     public Vector2 GetPosition(Vector2 upperLeftCorner, Vector2 size)
     {
         var pos = upperLeftCorner + new Vector2(size.x * col, size.y * raw);
-        // Debug.Log("index: " + this + "; corner: " + upperLeftCorner + "; size: " + size + "\npos: " + pos);
         return pos;
+    }
+
+    public void BoundToGrid(int columns, int raws)
+    {
+        col = Mathf.Clamp(col, 0, columns - 1);
+        raw = Mathf.Clamp(raw, 0, raws - 1);
     }
 
     public static implicit operator (int, int)(CellIndex ci)

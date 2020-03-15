@@ -1,0 +1,21 @@
+{
+    "lang": "en",
+    "wordsList": [
+        {
+            "Key": "language",
+            "Value": "English"
+        },
+        {
+            "Key": "score",
+            "Value": "Score"
+        },
+        {
+            "Key": "shop",
+            "Value": "Shop"
+        },
+        {
+            "Key": "buy",
+            "Value": "buy"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "lang": "ru",
+    "wordsList": [
+        {
+            "Key": "language",
+            "Value": "Русский"
+        },
+        {
+            "Key": "score",
+            "Value": "Счёт"
+        },
+        {
+            "Key": "shop",
+            "Value": "Магазин"
+        },
+        {
+            "Key": "buy",
+            "Value": "купить"
+        }
+    ]
+}

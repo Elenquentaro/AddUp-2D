@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class DataManager : MonoBehaviour
     public static void ResetProgress()
     {
         SaveLoader.Save<Progress>(new Progress());
+        SceneManager.LoadScene(0);
     }
 
     public static void SaveGridState(List<SummandInfo> summandsOnGrid)

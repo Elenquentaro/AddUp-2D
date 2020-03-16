@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// [RequireComponent(typeof(Text))]
+// базовый класс для компонентов UI, которые необходимо локализовать
+
 public class Localizator : MonoBehaviour
 {
     [SerializeField] protected Text textGUI = null;
@@ -20,15 +21,14 @@ public class Localizator : MonoBehaviour
 
     void OnEnable()
     {
-        if (LocalizationManager.GetCurrentLocalization() != null)
+        if (LocalizationManager.CurrentLocalization != null)
         {
-            LocalizeText(LocalizationManager.GetCurrentLocalization());
+            LocalizeText(LocalizationManager.CurrentLocalization);
         }
     }
 
     public void LocalizeText(Localization loc)
     {
-        // Debug.Log("localization of " + wordKey);
         if (loc.words.ContainsKey(wordKey))
         {
             localizableText = loc.words[wordKey];

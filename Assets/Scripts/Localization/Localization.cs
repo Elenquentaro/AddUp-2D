@@ -53,7 +53,23 @@ public class Localization : ISavable, ILoadable<Localization>
         {
             loc.words.Add(pair.Key, pair.Value);
         }
-        // Debug.Log(loc);
         return loc;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is Localization localization &&
+               langCode == localization.langCode &&
+               langName == localization.langName &&
+               wordsList.Count == localization.wordsList.Count;
+    }
+
+    public override int GetHashCode()
+    {
+        int hashCode = 280244602;
+        hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(langCode);
+        hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(langName);
+        hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(wordsList.Count);
+        return hashCode;
     }
 }

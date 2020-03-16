@@ -14,4 +14,9 @@ public struct SummandInfo
     {
         return new SummandInfo(info.val, info.pos);
     }
+
+    public static implicit operator SummandInfo(Summand summand)
+    {
+        return new SummandInfo(summand.Number, summand.ParentCellIndex);
+    }
 }

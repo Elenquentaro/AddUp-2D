@@ -8,7 +8,7 @@ public class LocalizationManager : MonoBehaviour
 
     private static Localization currentLocalization;
 
-    public static Localization GetCurrentLocalization() => currentLocalization;
+    public static Localization CurrentLocalization => currentLocalization;
 
 #if UnityEditor
     [MenuItem("Localization/Create default en localization file")]
@@ -33,8 +33,6 @@ public class LocalizationManager : MonoBehaviour
             return;
         }
         SetCurrentLocalization(current);
-
-        // Debug.Log("Current localization: " + currentLocalization);
     }
 
     public static void SetCurrentLocalization(Localization localization)

@@ -15,17 +15,14 @@ public class GridField : MonoBehaviour
     [SerializeField] private Vector2 cellSize = new Vector2(1, -1);
 
     [SerializeField] private int gridSize = 4;
+    public int GridSize => gridSize;
 
     private Cell[,] cells;
-    public Cell[,] Cells => cells;
 
     private List<CellIndex> emptyCells = new List<CellIndex>();
-    public bool HasEmptyCells => emptyCells.Count > 0;
-    public bool HalfFilled => emptyCells.Count <= (gridSize * gridSize) / 2;
 
     private int maxSummandAtField = 1;
     public int MaxSummandAtField => maxSummandAtField;
-
 
     void Awake()
     {
@@ -49,15 +46,12 @@ public class GridField : MonoBehaviour
                     Index = (col, raw)
                 };
                 emptyCells.Add((col, raw));
-                var center = firstCellPos + new Vector2(cellSize.x * col, cellSize.y * raw);
-                // Debug.Log($"center of {col}, {raw} = {center}");
             }
         }
     }
 
     public void InsertToRandomEmptyCell(Summand summand, int summandValue = 1)
     {
-        if (!HasEmptyCells) throw new InvalidOperationException("There's no empty cells");
         var cell = emptyCells[UnityEngine.Random.Range(0, emptyCells.Count)];
         InsertToCell(cell, summand, summandValue);
     }
@@ -68,7 +62,7 @@ public class GridField : MonoBehaviour
         {
             cell.BoundToGrid(gridSize, gridSize);
             var prevContent = cells[cell.col, cell.raw].ExtractContent();
-            if (prevContent != null) Destroy(prevContent);
+            if (prevContent != null) prevContent.RemoveFromGrid();
         }
 
         cells[cell.col, cell.raw].AttachContent(summand);
@@ -82,7 +76,6 @@ public class GridField : MonoBehaviour
     {
         var convPos = pos - firstCellPos;
         CellIndex index = (Mathf.RoundToInt(convPos.x / cellSize.x), Mathf.RoundToInt(convPos.y / cellSize.y));
-        // Debug.Log("position: " + pos + "; conv pos: " + convPos + "; cell index: " + index);
         return index;
     }
 
@@ -93,7 +86,7 @@ public class GridField : MonoBehaviour
             Debug.Log("Out of bounds!");
             if (Trash.IsSelected)
             {
-                Destroy(cells[from.col, from.raw].ExtractContent().gameObject);
+                cells[from.col, from.raw].ExtractContent().RemoveFromGrid();
             }
         }
         else
@@ -107,27 +100,11 @@ public class GridField : MonoBehaviour
         to.BoundToGrid(gridSize, gridSize);
         if (cells[to.col, to.raw].MergeContentWith(cells[from.col, from.raw]))
         {
-            DataManager.SaveGridState(GetSummandsOnGrid());
             emptyCells.Remove(to);
         }
     }
 
-    public List<SummandInfo> GetSummandsOnGrid()
-    {
-        List<SummandInfo> list = new List<SummandInfo>();
-        for (int raw = 0; raw < gridSize; raw++)
-        {
-            for (int col = 0; col < gridSize; col++)
-            {
-                if (cells[col, raw].ContentValue != null)
-                {
-                    list.Add(((int)cells[col, raw].ContentValue, (col, raw)));
-                }
-            }
-        }
-        return list;
-    }
-
+    //отрисовка в Gizmos для отображения сетки в окне редактора с целью более удобной настроки
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -135,7 +112,6 @@ public class GridField : MonoBehaviour
         {
             for (int raw = 0; raw < gridSize; raw++)
             {
-                // Handles.Label(firstCellPos + new Vector2(cellSize.x * col, cellSize.y * raw), $"col {col}, raw {raw}");
                 Gizmos.DrawWireCube(firstCellPos + new Vector2(cellSize.x * col, cellSize.y * raw), cellSize);
             };
         }

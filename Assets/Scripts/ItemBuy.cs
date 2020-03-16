@@ -8,6 +8,8 @@ public class ItemBuy : Localizator
 {
     public static GenericEvent<ShopItem> onPurchase = new GenericEvent<ShopItem>();
 
+    public static EmptyEvent onCannotPurchase = new EmptyEvent();
+
     [SerializeField] private Text itemNameGUI = null;
 
     private ShopItem item;
@@ -23,7 +25,7 @@ public class ItemBuy : Localizator
         CheckPurchaseAbility(DataManager.CurrentProgress.Score);
         ScoreCounter.onScoreChange.AddListener(CheckPurchaseAbility);
 
-        LocalizeText(LocalizationManager.GetCurrentLocalization() ?? new Localization());
+        LocalizeText(LocalizationManager.CurrentLocalization ?? new Localization());
         purchaseNumber = DataManager.CurrentProgress.BuyedItems[item.number - 1];
         DisplayText();
     }
@@ -39,8 +41,14 @@ public class ItemBuy : Localizator
         return item.GetCurrentPrice(purchaseNumber);
     }
 
+    //вызывается нажатием на кнопку
     public void Buy()
     {
+        if (!SummandSpawner.HasEmptyCells)
+        {
+            onCannotPurchase?.Invoke();
+            return;
+        }
         purchaseNumber++;
         onPurchase?.Invoke(item);
         DisplayText();

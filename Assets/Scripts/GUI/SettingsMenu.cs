@@ -30,9 +30,11 @@ public class SettingsMenu : MonoBehaviour
 
     void OnEnable()
     {
-        langSelector.value = Array.IndexOf(localizations, LocalizationManager.GetCurrentLocalization());
+        Localization currentLoc = LocalizationManager.CurrentLocalization;
+        langSelector.value = Array.IndexOf(localizations, currentLoc);
         rateTextGUI.text = DataManager.CurrentSettings.SummandSpawnRate.ToString();
         spawnRateSlider.value = DataManager.CurrentSettings.SummandSpawnRate;
+        return;
     }
 
     private void InitDropdown()
@@ -42,7 +44,7 @@ public class SettingsMenu : MonoBehaviour
         langSelector.onValueChanged.AddListener((value) =>
         {
             LocalizationManager.SetCurrentLocalization(localizations[value]);
-            DataManager.CurrentSettings.SetLanguage(LocalizationManager.GetCurrentLocalization().langCode);
+            DataManager.CurrentSettings.SetLanguage(LocalizationManager.CurrentLocalization.langCode);
         });
     }
 
@@ -55,11 +57,13 @@ public class SettingsMenu : MonoBehaviour
         });
     }
 
+    //вызывается по нажатию кнопки
     public void ResetProgress()
     {
         DataManager.ResetProgress();
     }
 
+    //вызывается по нажатию кнопки
     public void SwitchVisibility()
     {
         settingsPanel.SetActive(!settingsPanel.activeSelf);

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+//расширение редактора для более удобной настройки таблицы наград
+//поддерживается автоподсчёт стоимости по вписанной формуле
+
 [CustomEditor(typeof(MergeRewardTable))]
 public class RewardTableEditor : Editor
 {

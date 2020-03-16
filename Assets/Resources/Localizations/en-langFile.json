@@ -23,6 +23,10 @@
             "Value": "Language"
         },
         {
+            "Key": "purchase-error",
+            "Value": "All cells are occupied"
+        },
+        {
             "Key": "reset",
             "Value": "Reset progress"
         },

@@ -39,7 +39,7 @@ public class Cell
         if (this.ContentValue == other.ContentValue)
         {
             content.IncreaseValue();
-            UnityEngine.Object.Destroy(other.ExtractContent().gameObject);
+            other.ExtractContent().RemoveFromGrid();
             return true;
         }
         return false;

@@ -12,7 +12,6 @@ public class Trash : MonoBehaviour
         if (collider.GetComponent<Summand>())
         {
             IsSelected = true;
-            // Debug.Log("Trash is selected = " + IsSelected);
         }
     }
 
@@ -21,7 +20,6 @@ public class Trash : MonoBehaviour
         if (collider.GetComponent<Summand>())
         {
             IsSelected = false;
-            // Debug.Log("Trash is selected = " + IsSelected);
         }
     }
 }

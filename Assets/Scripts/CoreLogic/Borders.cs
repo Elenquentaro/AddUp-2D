@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//структура, предоставляющая более удобное отслеживание расположения предмета в заданных рамках, чем чистый Rect
+
 [System.Serializable]
 public struct Borders
 {

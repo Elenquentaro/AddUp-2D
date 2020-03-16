@@ -1,3 +1,5 @@
+//интерфейсы для большей надёжности архитектуры сохранения
+
 public interface ISavable
 {
     string GetSavedData();

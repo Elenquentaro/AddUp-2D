@@ -31,7 +31,6 @@ public class DataManager : MonoBehaviour
 
     void Start()
     {
-        // currentSettings.SetLanguage("ru");
         LocalizationManager.LoadCurrentLocalization(currentSettings.Language);
     }
 
@@ -39,6 +38,16 @@ public class DataManager : MonoBehaviour
     {
         SaveLoader.Save<Progress>(new Progress());
         SceneManager.LoadScene(0);
+    }
+
+    public static void SaveGridState(List<Summand> summandsOnGrid)
+    {
+        List<SummandInfo> list = new List<SummandInfo>();
+        for (int i = 0; i < summandsOnGrid.Count; i++)
+        {
+            list.Add(summandsOnGrid[i]);
+        }
+        SaveGridState(list);
     }
 
     public static void SaveGridState(List<SummandInfo> summandsOnGrid)

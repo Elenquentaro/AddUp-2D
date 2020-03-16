@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Summand : MonoBehaviour
 {
+    public static GenericEvent<Summand> onRemove = new GenericEvent<Summand>();
+
     public static IntEvent onIncrease = new IntEvent();
 
     private GenericAction<CellIndex, Vector2> onRelease;
@@ -15,7 +15,7 @@ public class Summand : MonoBehaviour
     private int number = 1;
     public int Number => number;
 
-    private CellIndex ParentCellIndex { get; set; }
+    public CellIndex ParentCellIndex { get; set; }
 
     private Borders borders;
 
@@ -43,6 +43,11 @@ public class Summand : MonoBehaviour
     public void SetPosToParentCell()
     {
         transform.position = ParentCellIndex.GetPosition(GridField.Borders.BaseRect.min, GridField.CellSize);
+    }
+
+    public void RemoveFromGrid()
+    {
+        onRemove?.Invoke(this);
     }
 
     public void OnMouseUp()

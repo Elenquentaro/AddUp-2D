@@ -2,4 +2,4 @@
 Small game with numbers
 
 Latest build:
-https://drive.google.com/open?id=1PWoS0moynYlVYXRv22UmLt53Uw4wFUsf
+https://drive.google.com/open?id=1B97LLvio7GFsfFFFHqbbjuUTUhM9NZFI

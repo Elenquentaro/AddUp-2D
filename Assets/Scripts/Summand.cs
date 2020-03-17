@@ -26,10 +26,10 @@ public class Summand : MonoBehaviour
         borders = GridField.Borders;
     }
 
-    public void AssignValue(CellIndex index, int value = 1)
+    public void AssignValue(CellIndex index, int value)
     {
         ParentCellIndex = index;
-        if (number < value) number = value;
+        number = value;
         valueDisplay.text = number.ToString();
         SetPosToParentCell();
     }
@@ -47,6 +47,7 @@ public class Summand : MonoBehaviour
 
     public void RemoveFromGrid()
     {
+        number = 1;
         onRemove?.Invoke(this);
     }
 

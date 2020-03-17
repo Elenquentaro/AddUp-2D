@@ -17,7 +17,7 @@ public class Cell
     public void AttachContent(Summand content)
     {
         this.content = content;
-        this.content.AssignValue(Index);
+        this.content.AssignValue(Index, content.Number);
     }
 
     public Summand ExtractContent()
